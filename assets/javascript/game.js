@@ -1,7 +1,5 @@
 
 
-
-   var message = "Guess The Letter From a to z";
    var alphaRay = [
                "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o",
                "p","q","r","s","t","u","v","w","x","y","z"
@@ -9,8 +7,8 @@
    var wins = 0;
    var losses = 0;
    var guesses =9;
-   var letterToGuess = "";
-   var lettersGuessed =[];
+   var letterToGuess = null;
+   var lettersGuessed = [];
    var gameOver = false;
    var left = 9;
 
@@ -26,39 +24,40 @@
    };
 
    var showLetter = function () {
-   	document.querySelector('#guessed').innerHTML = "Your wrong guesses so far:" + lettersGuessed.join(', ');
+      var i = 0;
+   	document.querySelector('#guessed').innerHTML = "Your wrong guesses so far: " + lettersGuessed.join(', ');
    };
 
-   var redo = funtion() {
-   	allGuesses = 9;
-   	left = 9;
-   	lettersGuessed =[];
+   var redo = function() {
+   	 allGuesses = 9;
+   	 left = 9;
+   	 lettersGuessed =[];
 
    	leftMinus();
    	addLetter();
    	showLetter();
 
 
-   }
+   };
 
    leftMinus();
    addLetter();
 
-   document.onekeyup = function(event) {
+   document.onkeyup = function(event) {
    	left--;
-   	var userKey = String.fromCharCode(event.keycode).toLowerCase();
-
+   	var userKey = event.key.toLowerCase();
+      console.log(userKey)
    	lettersGuessed.push(userKey);
 
    	leftMinus();
    	showLetter();
 
    	if (left > 0) {
-   		if (userKey ==lettersGuessed){
+   		if (userKey === lettersGuessed){
    			wins++;
    			document.querySelector('#wins').innerHTML= "wins: " + wins;
 
-   				redo()
+   				redo();
    		}
    	
    	} else if (left == 0){
@@ -67,6 +66,8 @@
 
    		redo();
    	}
-   };
+
+    }  
+   
 
   
